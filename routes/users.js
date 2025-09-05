@@ -67,7 +67,7 @@ router.post('/signin', async function(req, res, next) {
 
     // 사용자 조회
     const existingUser = await users.findOne({ username: username });
-    if (!existingUser) {
+    if (existingUser) {
       var compareResult = bcrypt.compareSync(password, existingUser.password);
       if (compareResult) {
         // 세션에 사용자 정보 저장
