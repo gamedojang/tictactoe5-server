@@ -37,6 +37,11 @@ async function connectDB() {
   }
 }
 
+connectDB().catch(err => {
+  console.error('Failed to connect to the database:', err);
+  process.exit(1);
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
