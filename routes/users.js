@@ -50,4 +50,14 @@ router.post('/signup', async function(req, res, next) {
   }
 });
 
+// 로그인
+router.post('/signin', async function(req, res, next) {
+  try {
+    
+  } catch (error) {
+    console.error('Error during signin:', error);
+    res.status(500).json({ message: 'Internal server error.' });
+  }
+});
+
 module.exports = router;
