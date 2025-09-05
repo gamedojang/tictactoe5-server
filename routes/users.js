@@ -50,6 +50,4 @@ router.post('/signup', async function(req, res, next) {
   }
 });
 
-
-
 module.exports = router;
