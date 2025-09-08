@@ -147,5 +147,37 @@ router.post('/addscore', async function(req, res, next) {
 });
 
 // 점수 조회
+router.get('/score', async function(req, res, next) {
+  try {
+
+    if (!req.session.isAuthenticated) {
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+
+    var userId = req.session.userId;
+    
+    var database = req.app.get('database');
+    var users = database.collection('users');
+
+    const user = await users.findOne(
+      { _id: new ObjectId(userId) }
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json({
+      id: user._id.toString(),
+      username: user.username,
+      nickname: user.nickname,
+      score: user.score || 0
+    });
+
+  } catch (error) {
+    console.error('Error fetching score:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 module.exports = router;
